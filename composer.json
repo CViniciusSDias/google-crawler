@@ -1,6 +1,6 @@
 {
     "name": "cviniciussdias/google-crawler",
-    "description": "A simple crawler for finding Google results",
+    "description": "A simple Crawler for getting Google results",
     "require": {
         "guzzlehttp/guzzle": "^6.2",
         "symfony/dom-crawler": "^3.2",
