@@ -1,8 +1,15 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler;
 
+/**
+ * Class that represents a search term and makes sure that no spaces are used
+ *
+ * @package CViniciusSDias\GoogleCrawler
+ * @author Vinicius Dias
+ */
 class SearchTerm
 {
+    /** @var string $searchTerm */
     protected $searchTerm;
 
     /**
@@ -31,6 +38,7 @@ class SearchTerm
      *
      * @param $searchTerm
      * @return string
+     * @todo Escape all the url special characters
      */
     protected function normalize($searchTerm): string
     {

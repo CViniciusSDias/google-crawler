@@ -45,6 +45,7 @@ class Result
     /**
      * @param string $url
      * @return Result
+     * @throws InvalidUrlException
      */
     public function setUrl(string $url): Result
     {

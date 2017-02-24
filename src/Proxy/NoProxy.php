@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  * and returning its response
  *
  * @package CViniciussDias\GoogleCrawler\Proxy
+ * @author Vinicius Dias
  */
 class NoProxy implements GoogleProxy
 {
