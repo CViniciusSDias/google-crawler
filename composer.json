@@ -1,0 +1,29 @@
+{
+    "name": "cviniciussdias/google-crawler",
+    "description": "A simple crawler for finding Google results",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "symfony/dom-crawler": "^3.2",
+        "php-ds/php-ds": "^1.1",
+        "symfony/css-selector": "^3.2"
+    },
+    "require-dev": {
+        "phing/phing": "^2.16",
+        "phpunit/phpunit": "^6.0",
+        "phpmd/phpmd" : "^2.6",
+        "squizlabs/php_codesniffer": "^2.7",
+        "sebastian/phpcpd": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CViniciusSDias\\GoogleCrawler\\": "src/"
+        }
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "CViniciusSDias",
+            "email": "carlosv775@gmail.com"
+        }
+    ]
+}
