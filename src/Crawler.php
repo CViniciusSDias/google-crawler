@@ -44,7 +44,7 @@ class Crawler
         }
 
         return $resultList;
-   }
+    }
 
     /**
      * If $resultLink is a valid link, this method assembles the Result and adds it to $googleResults
