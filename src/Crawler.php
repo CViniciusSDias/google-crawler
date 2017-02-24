@@ -8,6 +8,12 @@ use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 use Symfony\Component\DomCrawler\Link;
 
+/**
+ * Google Crawler
+ *
+ * @package CViniciusSDias\GoogleCrawler
+ * @author Vinicius Dias
+ */
 class Crawler
 {
     /** @var string $url*/
@@ -24,7 +30,7 @@ class Crawler
     }
 
     /**
-     * Returns the found results for the specified search term
+     * Returns the 100 first found results for the specified search term
      *
      * @return ResultList
      */
@@ -62,6 +68,12 @@ class Crawler
         return $googleResult;
     }
 
+    /**
+     * Parses the URL using the parser provided by $proxy
+     *
+     * @param string $url
+     * @return string
+     */
     private function getUrl(string $url): string
     {
         return $this->proxy->parseUrl($url);
