@@ -2,6 +2,8 @@
     "name": "cviniciussdias/google-crawler",
     "description": "A simple Crawler for getting Google results",
     "require": {
+        "php": ">=7.1",
+        "ext-ds": "*",
         "guzzlehttp/guzzle": "^6.2",
         "symfony/dom-crawler": "^3.2",
         "php-ds/php-ds": "^1.1",
