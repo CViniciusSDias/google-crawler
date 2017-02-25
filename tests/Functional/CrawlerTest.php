@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class CrawlerTest extends TestCase
 {
-    public function testSearchResultsWithOutProxy()
+    public function testSearchResultsWithoutProxy()
     {
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($searchTerm);
