@@ -1,6 +1,7 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler\Proxy;
 
+use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
@@ -50,8 +51,13 @@ class CommonProxy implements GoogleProxy
         parse_str($link['u'], $link);
         $link = array_values($link);
 
-        // TODO throw exception or do something to mark result as invalid
-        return filter_var($link[0], FILTER_VALIDATE_URL) ? $link[0] : 'http://example.com';
+        $url = filter_var($link[0], FILTER_VALIDATE_URL);
+        // If this is not a valid URL, so the result is (probably) an image, news or video suggestion
+        if (!$url) {
+            throw new InvalidResultException();
+        }
+
+        return $url;
     }
 }
 

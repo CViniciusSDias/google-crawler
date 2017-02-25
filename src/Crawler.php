@@ -1,6 +1,8 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler;
 
+use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
+use CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
     GoogleProxy, NoProxy
 };
@@ -45,8 +47,15 @@ class Crawler
 
         foreach ($googleResults as $result) {
             $resultLink = new Link($result, 'http://google.com/');
-            $googleResult = $this->parseResult($resultLink);
-            $resultList->addResult($googleResult);
+            try {
+                $googleResult = $this->parseResult($resultLink);
+                $resultList->addResult($googleResult);
+            } catch (InvalidResultException $invalidResult) {
+                // TODO Maybe log this exception
+            } catch (InvalidUrlException $invalidUrl) {
+                // TODO Maybe log this exception too
+                var_dump($resultLink->getNode());
+            }
         }
 
         return $resultList;
