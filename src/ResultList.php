@@ -52,8 +52,8 @@ class ResultList implements \IteratorAggregate
     }
 
     /** {@inheritdoc} */
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
-        return $this->results->getIterator();
+        return new \IteratorIterator($this->results);
     }
 }
