@@ -1,6 +1,8 @@
 {
     "name": "cviniciussdias/google-crawler",
     "description": "A simple Crawler for getting Google results",
+    "keywords": ["google", "crawler", "search"],
+    "type": "library",
     "require": {
         "php": ">=7.1",
         "ext-ds": "*",
