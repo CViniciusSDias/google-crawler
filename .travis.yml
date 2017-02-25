@@ -1,4 +1,6 @@
 language: php
 php:
     - '7.1'
-install: pecl install ds
+install:
+    - pecl install ds
+    - composer update
