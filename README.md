@@ -1,4 +1,5 @@
-# Google Crawler [![Build Status](https://travis-ci.org/CViniciusSDias/google-crawler.svg?branch=master)](https://travis-ci.org/CViniciusSDias/google-crawler)
+# Google Crawler
+[![Build Status](https://travis-ci.org/CViniciusSDias/google-crawler.svg?branch=master)](https://travis-ci.org/CViniciusSDias/google-crawler)
 
 A simple Crawler for getting Google results.
 
