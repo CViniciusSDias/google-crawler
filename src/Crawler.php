@@ -51,10 +51,10 @@ class Crawler
                 $googleResult = $this->parseResult($resultLink);
                 $resultList->addResult($googleResult);
             } catch (InvalidResultException $invalidResult) {
-                // TODO Maybe log this exception
+                // TODO Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
             } catch (InvalidUrlException $invalidUrl) {
                 // TODO Maybe log this exception too
-                var_dump($resultLink->getNode());
+                var_dump($resultLink->getUri());
             }
         }
 
