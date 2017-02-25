@@ -21,7 +21,7 @@ class Crawler
     /** @var GoogleProxy $proxy */
     protected $proxy;
 
-    public function __construct(SearchTerm $searchTerm, GoogleProxy $proxy = null)
+    public function __construct(SearchTermInterface $searchTerm, GoogleProxy $proxy = null)
     {
         // You can concatenate &gl=XX replacing XX with your country code (BR = Brazil; US = United States)
         // You should also add the coutry specific part of the google url, (like .br or .es)

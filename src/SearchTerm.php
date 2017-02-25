@@ -7,7 +7,7 @@ namespace CViniciusSDias\GoogleCrawler;
  * @package CViniciusSDias\GoogleCrawler
  * @author Vinicius Dias
  */
-class SearchTerm
+class SearchTerm implements SearchTermInterface
 {
     /** @var string $searchTerm */
     protected $searchTerm;
