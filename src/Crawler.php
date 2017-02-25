@@ -2,7 +2,6 @@
 namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
-use CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
     GoogleProxy, NoProxy
 };
@@ -52,9 +51,6 @@ class Crawler
                 $resultList->addResult($googleResult);
             } catch (InvalidResultException $invalidResult) {
                 // TODO Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
-            } catch (InvalidUrlException $invalidUrl) {
-                // TODO Maybe log this exception too
-                var_dump($resultLink->getUri());
             }
         }
 
