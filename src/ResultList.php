@@ -23,7 +23,7 @@ class ResultList implements \IteratorAggregate
     {
         $this->results = new Vector();
 
-        if ($capacity) {
+        if (!is_null($capacity)) {
             $this->results->allocate($capacity);
         }
     }
