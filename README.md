@@ -1,5 +1,7 @@
 # Google Crawler
 [![Build Status](https://travis-ci.org/CViniciusSDias/google-crawler.svg?branch=master)](https://travis-ci.org/CViniciusSDias/google-crawler)
+[![Code Coverage](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/?branch=master)
 
 A simple Crawler for getting Google results.
 
@@ -14,7 +16,9 @@ Install the latest version with
 $ composer require cviniciussdias/google-crawler
 ```
 
-## Basic Usage
+## Usage
+
+### Without proxy
 ```php
 <?php
 use CViniciusSDias\GoogleCrawler\{
@@ -22,12 +26,12 @@ use CViniciusSDias\GoogleCrawler\{
 };
 
 $searchTerm = new SearchTerm('Test');
-$crawler = new Crawler($searchTerm);
+$crawler = new Crawler($searchTerm); // or new Crawler($searchTerm, new NoProxy());
 
 $results = $crawler->getResults();
 ```
 
-### Using with some proxy
+### With some proxy
 ```php
 <?php
 use CViniciusSDias\GoogleCrawler\{
