@@ -15,11 +15,11 @@ class NoProxyTest extends TestCase
         $noProxy->parseUrl($invalidUrl);
     }
 
-    public function testUrlFromRegularGoogleResultMustNotThrowException()
+    public function testUrlMustBeCorrectlyParsed()
     {
         $noProxy = new NoProxy();
-        $invalidUrl = 'http://google.com//url?q=http://www.speedtest.net/pt/&sa=U&ved=0ahUKEwjYuPbkxqvSAhXFQZAKHdpyAxMQFggUMAA&usg=AFQjCNFR74JMZRVu3EUNUUHa7o_1ETZoiQ';
-        $url = $noProxy->parseUrl($invalidUrl);
+        $validUrl = 'http://google.com//url?q=http://www.speedtest.net/pt/&sa=U&ved=0ahUKEwjYuPbkxqvSAhXFQZAKHdpyAxMQFggUMAA&usg=AFQjCNFR74JMZRVu3EUNUUHa7o_1ETZoiQ';
+        $url = $noProxy->parseUrl($validUrl);
         static::assertEquals('http://www.speedtest.net/pt/', $url);
     }
 }
