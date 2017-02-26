@@ -60,4 +60,3 @@ class CommonProxy implements GoogleProxy
         return $url;
     }
 }
-
