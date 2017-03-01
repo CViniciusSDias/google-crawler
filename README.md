@@ -1,7 +1,9 @@
 # Google Crawler
+[![Latest Stable Version](https://poser.pugx.org/cviniciussdias/google-crawler/v/stable)](https://packagist.org/packages/cviniciussdias/google-crawler)
 [![Build Status](https://travis-ci.org/CViniciusSDias/google-crawler.svg?branch=master)](https://travis-ci.org/CViniciusSDias/google-crawler)
 [![Code Coverage](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/CViniciusSDias/google-crawler/?branch=master)
+[![License](https://poser.pugx.org/cviniciussdias/google-crawler/license)](https://packagist.org/packages/cviniciussdias/google-crawler)
 
 A simple Crawler for getting Google results.
 
