@@ -39,8 +39,8 @@ class Crawler
     {
         /** @var ResponseInterface $response */
         $response = $this->proxy->getHttpResponse($this->url);
-        $stringResposta = (string) $response->getBody();
-        $domCrawler = new DomCrawler($stringResposta);
+        $stringResponse = (string) $response->getBody();
+        $domCrawler = new DomCrawler($stringResponse);
         $googleResults = $domCrawler->filter('h3.r > a');
         $resultList = new ResultList($googleResults->count());
 
