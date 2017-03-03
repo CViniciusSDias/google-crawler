@@ -1,6 +1,7 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler\Proxy;
 
+use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -27,6 +28,7 @@ interface GoogleProxy
      *
      * @param string $url
      * @return string
+     * @throws InvalidResultException
      */
     public function parseUrl(string $url): string;
 }

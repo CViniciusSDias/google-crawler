@@ -38,6 +38,6 @@
     </target>
 
     <target name="test">
-        <exec command="vendor\bin\phpunit" passthru="true" />
+        <exec command="vendor/bin/phpunit" passthru="true" />
     </target>
 </project>
