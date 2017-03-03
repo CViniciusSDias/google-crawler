@@ -2,6 +2,7 @@
 namespace CViniciusSDias\GoogleCrawler\Proxy;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
+use CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -14,11 +15,17 @@ use Psr\Http\Message\ResponseInterface;
  */
 class NoProxy implements GoogleProxy
 {
+    /** {@inheritdoc} */
     public function getHttpResponse(string $url): ResponseInterface
     {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new InvalidUrlException("Invalid Google URL: $url");
+        }
+
         return (new Client())->request('GET', $url);
     }
 
+    /** {@inheritdoc} */
     public function parseUrl(string $url): string
     {
         // Separates the url parts

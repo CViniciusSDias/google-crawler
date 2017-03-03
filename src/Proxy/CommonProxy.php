@@ -26,7 +26,7 @@ class CommonProxy implements GoogleProxy
     public function __construct(string $endpoint)
     {
         if (!filter_var($endpoint, FILTER_VALIDATE_URL)) {
-            throw new InvalidUrlException();
+            throw new InvalidUrlException("Invalid CommonProxy endpoint: $endpoint");
         }
 
         $this->endpoint = $endpoint;
