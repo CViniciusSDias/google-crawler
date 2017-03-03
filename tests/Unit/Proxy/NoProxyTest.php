@@ -22,4 +22,13 @@ class NoProxyTest extends TestCase
         $url = $noProxy->parseUrl($validUrl);
         static::assertEquals('http://www.speedtest.net/pt/', $url);
     }
+
+    /**
+     * @expectedException \CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException
+     */
+    public function testTryingToGetHttpResponseFromInvalidUrlMustThrowException()
+    {
+        $noProxy = new NoProxy();
+        $noProxy->getHttpResponse('teste');
+    }
 }
