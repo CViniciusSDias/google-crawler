@@ -2,6 +2,7 @@
 namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
+use CViniciusSDias\GoogleCrawler\Proxy\KProxy;
 use PHPUnit\Framework\TestCase;
 
 class CrawlerTest extends TestCase
@@ -24,6 +25,16 @@ class CrawlerTest extends TestCase
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($searchTerm, $commonProxy);
+        $results = $crawler->getResults();
+
+        $this->checkResults($results);
+    }
+
+    public function testSearchresultsWithKProxy()
+    {
+        $kProxy = new KProxy(3);
+        $searchTerm = new SearchTerm('Test');
+        $crawler = new Crawler($searchTerm, $kProxy);
         $results = $crawler->getResults();
 
         $this->checkResults($results);
