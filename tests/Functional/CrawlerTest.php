@@ -30,9 +30,13 @@ class CrawlerTest extends TestCase
         $this->checkResults($results);
     }
 
-    public function testSearchresultsWithKProxy()
+    /**
+     * @dataProvider getKProxyServerNumbers
+     * @param int $serverNumber
+     */
+    public function testSearchresultsWithKProxy(int $serverNumber)
     {
-        $kProxy = new KProxy(3);
+        $kProxy = new KProxy($serverNumber);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($searchTerm, $kProxy);
         $results = $crawler->getResults();
@@ -46,6 +50,13 @@ class CrawlerTest extends TestCase
             ['https://proxy-us.hideproxy.me/includes/process.php?action=update'],
             ['https://proxy-nl.hideproxy.me/includes/process.php?action=update'],
             ['https://proxy-de.hideproxy.me/includes/process.php?action=update']
+        ];
+    }
+
+    public function getKProxyServerNumbers(): array
+    {
+        return [
+            [1], [2], [3], [4], [5], [6], [7], [8], [9]
         ];
     }
 
