@@ -41,7 +41,7 @@ use CViniciusSDias\GoogleCrawler\{
 };
 
 $searchTerm = new SearchTerm('Test');
-$commonProxy = new CommonProxy('https://proxy-us.hideproxy.me/includes/process.php?action=update');
+$commonProxy = new CommonProxy('https://us.hideproxy.me/includes/process.php?action=update');
 $crawler = new Crawler($searchTerm, $commonProxy);
 
 $results = $crawler->getResults();
