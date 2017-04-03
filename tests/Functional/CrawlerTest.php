@@ -47,9 +47,9 @@ class CrawlerTest extends TestCase
     public function getCommonEndpoints(): array
     {
         return [
-            ['https://proxy-us.hideproxy.me/includes/process.php?action=update'],
-            ['https://proxy-nl.hideproxy.me/includes/process.php?action=update'],
-            ['https://proxy-de.hideproxy.me/includes/process.php?action=update']
+            ['https://us.hideproxy.me/includes/process.php?action=update'],
+            ['https://nl.hideproxy.me/includes/process.php?action=update'],
+            ['https://de.hideproxy.me/includes/process.php?action=update']
         ];
     }
 
