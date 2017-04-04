@@ -31,7 +31,10 @@ class KProxy implements GoogleProxy
         $this->endpoint = "https://server{$serverNumber}.kproxy.com";
     }
 
-    /** {@inheritdoc} */
+    /**
+     * {@inheritdoc}
+     * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
+     */
     public function getHttpResponse(string $url): ResponseInterface
     {
         $httpClient = new Client(['cookies' => true]);

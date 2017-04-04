@@ -34,6 +34,7 @@ class Crawler
      * Returns the 100 first found results for the specified search term
      *
      * @return ResultList
+     * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
      */
     public function getResults(): ResultList
     {
