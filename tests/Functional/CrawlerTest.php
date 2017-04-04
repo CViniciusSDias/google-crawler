@@ -53,6 +53,11 @@ class CrawlerTest extends TestCase
         }
     }
 
+    /**
+     * Get the known endpoints for the CommonProxy class
+     *
+     * @return array
+     */
     public function getCommonEndpoints(): array
     {
         return [
@@ -62,6 +67,11 @@ class CrawlerTest extends TestCase
         ];
     }
 
+    /**
+     * Get the available server numbers for the KProxy class
+     *
+     * @return array
+     */
     public function getKProxyServerNumbers(): array
     {
         return [
@@ -69,6 +79,11 @@ class CrawlerTest extends TestCase
         ];
     }
 
+    /**
+     * Check if there are results and if they are valid
+     *
+     * @param ResultList $results
+     */
     public function checkResults(ResultList $results): void
     {
         static::assertNotEmpty($results->getResults());
