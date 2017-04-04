@@ -34,6 +34,7 @@ class KProxy implements GoogleProxy
     /**
      * {@inheritdoc}
      * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
+     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable
      */
     public function getHttpResponse(string $url): ResponseInterface
     {

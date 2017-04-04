@@ -35,6 +35,7 @@ class Crawler
      *
      * @return ResultList
      * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
+     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable
      */
     public function getResults(): ResultList
     {

@@ -3,6 +3,7 @@ namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
 use CViniciusSDias\GoogleCrawler\Proxy\KProxy;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +36,7 @@ class CrawlerTest extends TestCase
      * @dataProvider getKProxyServerNumbers
      * @param int $serverNumber
      */
-    public function testSearchresultsWithKProxy(int $serverNumber)
+    public function testSearchResultsWithKProxy(int $serverNumber)
     {
         try {
             $kProxy = new KProxy($serverNumber);
@@ -44,12 +45,8 @@ class CrawlerTest extends TestCase
             $results = $crawler->getResults();
 
             $this->checkResults($results);
-        } catch (ServerException $e) {
-            if ($e->hasResponse() && $e->getResponse()->getStatusCode() === 503) {
-                static::markTestSkipped('Proxy is unavailable for google searches now.');
-            } else {
-                throw new ServerException($e, $e->getRequest());
-            }
+        } catch (ServerException | ConnectException $e) {
+            static::markTestSkipped('Proxy is unavailable for google searches now.');
         }
     }
 
