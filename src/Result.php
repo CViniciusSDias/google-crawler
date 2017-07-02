@@ -15,6 +15,8 @@ class Result
     private $title;
     /** @var string $url */
     private $url;
+    /** @var string $description */
+    private $description;
 
     /**
      * @return string
@@ -56,4 +58,24 @@ class Result
         $this->url = $url;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return Result
+     */
+    public function setDescription(string $description): Result
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+
 }
