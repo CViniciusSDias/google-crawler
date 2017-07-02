@@ -90,6 +90,7 @@ class CrawlerTest extends TestCase
             static::assertInstanceOf(Result::class, $result);
             static::assertTrue(filter_var($result->getUrl(), FILTER_VALIDATE_URL) !== false);
             static::assertNotEmpty($result->getTitle());
+            static::assertNotNull($result->getDescription());
         }
     }
 }
