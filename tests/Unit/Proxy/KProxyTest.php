@@ -15,7 +15,7 @@ class KProxyTest extends TestCase
     }
 
     /** @expectedException \InvalidArgumentException */
-    public function testInstantiateWithServerNumberBiggetThanNineMustThrowException()
+    public function testInstantiateWithServerNumberBiggerThanNineMustThrowException()
     {
         /** @noinspection PhpUnusedLocalVariableInspection */
         $kProxy = new KProxy(10);
