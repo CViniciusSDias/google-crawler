@@ -2,7 +2,8 @@
 
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.0/phpunit.xsd"
-         bootstrap="vendor/autoload.php" colors="true">
+         bootstrap="vendor/autoload.php" colors="true"
+         stopOnFailure="true" stopOnError="true">
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
