@@ -23,18 +23,21 @@ class Crawler
     /** @var SearchTermInterface $searchTerm */
     private $searchTerm;
     /** @var string $countrySpecificSuffix */
-    private $countrySpecificSuffix;
+    private $googleDomain;
     /** @var string $countryCode */
     private $countryCode;
 
     public function __construct(
         SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
-        string $countrySpecificSuffix = '', string $countryCode = ''
+        string $googleDomain = 'google.com', string $countryCode = ''
     ) {
         $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
         $this->searchTerm = $searchTerm;
-        $this->countrySpecificSuffix = empty($countrySpecificSuffix) || mb_stripos($countrySpecificSuffix, '.') === 0
-            ? $countrySpecificSuffix : ".$countrySpecificSuffix";
+
+        if (mb_stripos($googleDomain, 'google.') === false || mb_stripos($googleDomain, 'http') === 0) {
+            throw new \InvalidArgumentException('Invalid google domain');
+        }
+        $this->googleDomain = $googleDomain;
 
         $this->countryCode = mb_strtoupper($countryCode);
     }
@@ -111,11 +114,8 @@ class Crawler
      */
     private function getGoogleUrl(): string
     {
-        $domain = 'https://www.google.com';
-        if (!empty($this->countrySpecificSuffix)) {
-            $domain .= $this->countrySpecificSuffix;
-        }
-        $url = "$domain/search?q={$this->searchTerm}&num=100";
+        $domain = $this->googleDomain;
+        $url = "https://$domain/search?q={$this->searchTerm}&num=100";
         if (!empty($this->countryCode)) {
             $url .= "&gl={$this->countryCode}";
         }

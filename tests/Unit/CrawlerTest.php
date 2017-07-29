@@ -6,17 +6,18 @@ use PHPUnit\Framework\TestCase;
 
 class CrawlerTest extends TestCase
 {
-    public function testCrawlerGetsCorrectUrlWithCountrySpecificSuffixWithoutDot()
+
+    public function testCrawlerGetsCorrectUrlWithSpecificDomain()
     {
-        $crawler = new Crawler(new SearchTerm('Test'), new NoProxy(), 'br', 'BR');
+        $crawler = new Crawler(new SearchTerm('Test'), new NoProxy(), 'www.google.com.br');
         $url = $this->getUrlFromCrawler($crawler);
 
-        static::assertEquals('https://www.google.com.br/search?q=Test&num=100&gl=BR', $url);
+        static::assertEquals('https://www.google.com.br/search?q=Test&num=100', $url);
     }
 
-    public function testCrawlerGetsCorrectUrlWithCountrySpecificSuffixWithDot()
+    public function testCrawlerGetsCorrectUrlWithCountryCode()
     {
-        $crawler = new Crawler(new SearchTerm('Test'), new NoProxy(), '.br', 'BR');
+        $crawler = new Crawler(new SearchTerm('Test'), new NoProxy(), 'www.google.com.br', 'BR');
         $url = $this->getUrlFromCrawler($crawler);
 
         static::assertEquals('https://www.google.com.br/search?q=Test&num=100&gl=BR', $url);
@@ -27,7 +28,7 @@ class CrawlerTest extends TestCase
         $crawler = new Crawler(new SearchTerm('Test'));
         $url = $this->getUrlFromCrawler($crawler);
 
-        static::assertEquals('https://www.google.com/search?q=Test&num=100', $url);
+        static::assertEquals('https://google.com/search?q=Test&num=100', $url);
     }
 
     private function getUrlFromCrawler(Crawler $crawler): string

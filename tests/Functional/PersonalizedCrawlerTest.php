@@ -10,7 +10,7 @@ class PersonalizedCrawlerTest extends AbstractCrawlerTest
     public function testSearchOnBrazilianGoogleWithoutProxy()
     {
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler($searchTerm, new NoProxy(), '.br', 'BR');
+        $crawler = new Crawler($searchTerm, new NoProxy(), 'google.com.br', 'BR');
 
         $results = $crawler->getResults();
         $this->checkResults($results);
@@ -19,7 +19,7 @@ class PersonalizedCrawlerTest extends AbstractCrawlerTest
     public function testSearchWithInvalidCountrySuffixMustFail()
     {
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler($searchTerm, new NoProxy(), '.ab');
+        $crawler = new Crawler($searchTerm, new NoProxy(), 'google.ab');
 
         try {
             $crawler->getResults();
