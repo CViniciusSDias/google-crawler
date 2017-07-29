@@ -1,13 +1,13 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler;
 
+require_once __DIR__ . '/AbstractCrawlerTest.php';
 use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
 use CViniciusSDias\GoogleCrawler\Proxy\KProxy;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
-use PHPUnit\Framework\TestCase;
 
-class CrawlerTest extends TestCase
+class DefaultCrawlerTest extends AbstractCrawlerTest
 {
     public function testSearchResultsWithoutProxy()
     {
@@ -36,7 +36,7 @@ class CrawlerTest extends TestCase
      * @dataProvider getKProxyServerNumbers
      * @param int $serverNumber
      */
-    public function testSearchResultsWithKProxy(int $serverNumber)
+    public function testSearchResultsWithKproxy(int $serverNumber)
     {
         try {
             $kProxy = new KProxy($serverNumber);
@@ -74,23 +74,5 @@ class CrawlerTest extends TestCase
         return [
             [1], [2], [3], [4], [5], [6], [7], [8], [9]
         ];
-    }
-
-    /**
-     * Check if there are results and if they are valid
-     *
-     * @param ResultList $results
-     */
-    public function checkResults(ResultList $results): void
-    {
-        static::assertNotEmpty($results->getResults());
-
-        /** @var Result $result */
-        foreach ($results as $result) {
-            static::assertInstanceOf(Result::class, $result);
-            static::assertTrue(filter_var($result->getUrl(), FILTER_VALIDATE_URL) !== false);
-            static::assertNotEmpty($result->getTitle());
-            static::assertNotNull($result->getDescription());
-        }
     }
 }

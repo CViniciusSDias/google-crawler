@@ -12,13 +12,29 @@ This component can be used to retrieve the 100 first results for a search term.
 Since google detects a crawler and blocks the IP when several requests are made,
 this component is prepared to use some online proxy services, such as hide.me.
 
-## Instalation
+## Installation
 Install the latest version with
 ```
 $ composer require cviniciussdias/google-crawler
 ```
 
 ## Usage
+
+### Crawler class constructor prototype
+```
+CViniciusSDias\GoogleCrawler\Crawler::__construct(
+    SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
+    string $countrySpecificSuffix = '', string $countryCode = ''
+)
+```
+
+#### Parameters
+- $searchTerm Term that will be searched on Google
+- $proxy Online proxy service that will be used to access Google [optional]
+- $countrySpecificSuffix Suffix for a specific country that will be added to Google URL, like '.br' or '.de' [optional]
+- $countryCode Country code that will be added to `gl` parameter on Google's url, indicating the location of the search. E.g. 'BR', 'US', 'DE' [optional]
+
+## Examples
 
 ### Without proxy
 ```php
@@ -47,6 +63,11 @@ $crawler = new Crawler($searchTerm, $commonProxy);
 $results = $crawler->getResults();
 ```
 
+#### More details on proxies
+To know more details about which proxies are currently
+supported, see the `tests/Functional/CrawlerTest.php` file.
+There you'll see all the available proxies.
+
 ## About
 
 ### Requirements
@@ -55,7 +76,7 @@ $results = $crawler->getResults();
 - This component requires the extension [php-ds](http://php.net/manual/pt_BR/book.ds.php) to be installed
 
 ### Author
-Vinicius Dias - carlosv775@gmail.com - https://github.com/CViniciusSDias/
+Vinicius Dias (ZCE) - carlosv775@gmail.com - https://github.com/CViniciusSDias/ - http://www.zend.com/en/yellow-pages/ZEND030134
 
 ### License
-This component is licensed under the GPL License - see the `LICENSE` file for details
+This component is licensed under the GPL v3.0 License - see the `LICENSE` file for details

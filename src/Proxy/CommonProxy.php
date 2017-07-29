@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
  * @package CViniciusSDias\GoogleCrawler\Proxy
  * @author Vinicius Dias
  */
-class CommonProxy implements GoogleProxy
+class CommonProxy implements GoogleProxyInterface
 {
     /** @var string $endpoint */
     protected $endpoint;

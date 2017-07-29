@@ -8,6 +8,6 @@ class SearchTermTest extends TestCase
     public function testSearchTermShouldNotHaveSpaces()
     {
         $searchTerm = new SearchTerm('Search Term');
-        static::assertEquals('Search+Term', $searchTerm);
+        static::assertEquals('Search%20Term', $searchTerm);
     }
 }

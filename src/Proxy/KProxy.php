@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  * @package CViniciusSDias\GoogleCrawler\Proxy
  * @author Vinicius Dias
  */
-class KProxy implements GoogleProxy
+class KProxy implements GoogleProxyInterface
 {
     /** @var string $endpoint */
     protected $endpoint;

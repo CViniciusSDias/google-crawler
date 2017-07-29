@@ -3,7 +3,7 @@ namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
-    GoogleProxy, NoProxy
+    GoogleProxyInterface, NoProxy
 };
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
@@ -18,17 +18,28 @@ use DOMElement;
  */
 class Crawler
 {
-    /** @var string $url*/
-    protected $url;
-    /** @var GoogleProxy $proxy */
+    /** @var GoogleProxyInterface $proxy */
     protected $proxy;
+    /** @var SearchTermInterface $searchTerm */
+    private $searchTerm;
+    /** @var string $countrySpecificSuffix */
+    private $googleDomain;
+    /** @var string $countryCode */
+    private $countryCode;
 
-    public function __construct(SearchTermInterface $searchTerm, GoogleProxy $proxy = null)
-    {
-        // You can concatenate &gl=XX replacing XX with your country code (BR = Brazil; US = United States)
-        // You should also add the coutry specific part of the google url, (like .br or .es)
-        $this->url = "http://www.google.com/search?q=$searchTerm&num=100";
+    public function __construct(
+        SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
+        string $googleDomain = 'google.com', string $countryCode = ''
+    ) {
         $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
+        $this->searchTerm = $searchTerm;
+
+        if (mb_stripos($googleDomain, 'google.') === false || mb_stripos($googleDomain, 'http') === 0) {
+            throw new \InvalidArgumentException('Invalid google domain');
+        }
+        $this->googleDomain = $googleDomain;
+
+        $this->countryCode = mb_strtoupper($countryCode);
     }
 
     /**
@@ -36,12 +47,13 @@ class Crawler
      *
      * @return ResultList
      * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
-     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable
+     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable or $countrySpecificSuffix is invalid
      */
     public function getResults(): ResultList
     {
+        $googleUrl = $this->getGoogleUrl();
         /** @var ResponseInterface $response */
-        $response = $this->proxy->getHttpResponse($this->url);
+        $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
         $googleResults = $domCrawler->filterXPath('//div[@class="g" and h3[@class="r" and a]]');
@@ -56,7 +68,7 @@ class Crawler
                 $googleResult = $this->parseResult($resultLink, $descriptionElement);
                 $resultList->addResult($googleResult);
             } catch (InvalidResultException $invalidResult) {
-                // TODO Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
+                // Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
             }
         }
 
@@ -79,7 +91,7 @@ class Crawler
         $googleResult = new Result();
         $googleResult
             ->setTitle($resultLink->getNode()->nodeValue)
-            ->setUrl($this->getUrl($resultLink->getUri()))
+            ->setUrl($this->parseUrl($resultLink->getUri()))
             ->setDescription($description);
 
         return $googleResult;
@@ -92,8 +104,22 @@ class Crawler
      * @return string
      * @throws InvalidResultException
      */
-    private function getUrl(string $url): string
+    private function parseUrl(string $url): string
     {
         return $this->proxy->parseUrl($url);
+    }
+
+    /**
+     * Assembles the Google URL using the previously informed data
+     */
+    private function getGoogleUrl(): string
+    {
+        $domain = $this->googleDomain;
+        $url = "https://$domain/search?q={$this->searchTerm}&num=100";
+        if (!empty($this->countryCode)) {
+            $url .= "&gl={$this->countryCode}";
+        }
+
+        return $url;
     }
 }

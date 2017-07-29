@@ -3,7 +3,7 @@
         <include name="**/*.php" />
     </fileset>
 
-    <target name="build" depends="lint,phpmd,phpcs,phpdepend,test">
+    <target name="build" depends="lint,phpmd,phpcpd,phpcs,phpdepend,test">
     </target>
 
     <target name="lint">
@@ -20,7 +20,17 @@
         </phpmd>
     </target>
 
+    <target name="phpcpd">
+        <phpcpd>
+            <fileset refid="src" />
+
+            <formatter type="pmd" outfile="qa/phpcpd.xml"/>
+        </phpcpd>
+    </target>
+
     <target name="phpcs">
+        <autoloader autoloaderpath="./vendor/autoload.php"/>
+
         <phpcodesniffer standard="PSR2">
             <fileset refid="src" />
 
