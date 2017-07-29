@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
  * @package CViniciussDias\GoogleCrawler\Proxy
  * @author Vinicius Dias
  */
-interface GoogleProxy
+interface GoogleProxyInterface
 {
     /**
      * Gets the ResponseInterface for the informed URL based on all the information that

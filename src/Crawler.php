@@ -3,7 +3,7 @@ namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
-    GoogleProxy, NoProxy
+    GoogleProxyInterface, NoProxy
 };
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
@@ -20,10 +20,10 @@ class Crawler
 {
     /** @var string $url*/
     protected $url;
-    /** @var GoogleProxy $proxy */
+    /** @var GoogleProxyInterface $proxy */
     protected $proxy;
 
-    public function __construct(SearchTermInterface $searchTerm, GoogleProxy $proxy = null)
+    public function __construct(SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null)
     {
         // You can concatenate &gl=XX replacing XX with your country code (BR = Brazil; US = United States)
         // You should also add the coutry specific part of the google url, (like .br or .es)

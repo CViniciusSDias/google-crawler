@@ -13,7 +13,7 @@ use Psr\Http\Message\ResponseInterface;
  * @package CViniciussDias\GoogleCrawler\Proxy
  * @author Vinicius Dias
  */
-class NoProxy implements GoogleProxy
+class NoProxy implements GoogleProxyInterface
 {
     /** {@inheritdoc} */
     public function getHttpResponse(string $url): ResponseInterface
