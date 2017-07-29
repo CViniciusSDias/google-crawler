@@ -36,12 +36,11 @@ class SearchTerm implements SearchTermInterface
     /**
      * Normalizes the search term removing its spaces
      *
-     * @param $searchTerm
+     * @param string $searchTerm
      * @return string
-     * @todo Escape all the url special characters
      */
-    protected function normalize($searchTerm): string
+    protected function normalize(string $searchTerm): string
     {
-        return preg_replace('/\s/', '+', $searchTerm);
+        return rawurlencode($searchTerm);
     }
 }
