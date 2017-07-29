@@ -65,7 +65,7 @@ class Crawler
                 $googleResult = $this->parseResult($resultLink, $descriptionElement);
                 $resultList->addResult($googleResult);
             } catch (InvalidResultException $invalidResult) {
-                // TODO Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
+                // Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
             }
         }
 
