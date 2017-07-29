@@ -31,6 +31,19 @@ class CrawlerTest extends TestCase
         static::assertEquals('https://google.com/search?q=Test&num=100', $url);
     }
 
+    /** @expectedException \InvalidArgumentException */
+    public function testTryingToInstantiateACrawlerWithHttpOnGoogleDomainMustFail()
+    {
+        $domain = 'http://google.com';
+        new Crawler(new SearchTerm(''), new NoProxy(), $domain);
+    }
+
+    /** @expectedException \InvalidArgumentException */
+    public function testTryingToInstantiateACrawlerWithoutGoogleOnTheDomainMustFail()
+    {
+        new Crawler(new SearchTerm(''), new NoProxy(), 'invalid-domain');
+    }
+
     private function getUrlFromCrawler(Crawler $crawler): string
     {
         $reflectionClass = new \ReflectionClass($crawler);
@@ -39,5 +52,4 @@ class CrawlerTest extends TestCase
 
         return $reflectionMethod->invoke($crawler);
     }
-
 }
