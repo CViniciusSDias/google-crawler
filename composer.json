@@ -7,9 +7,7 @@
         "php": ">=7.1",
         "ext-ds": "*",
         "guzzlehttp/guzzle": "^6.2",
-        "symfony/dom-crawler": "^3.2",
-        "php-ds/php-ds": "^1.1",
-        "symfony/css-selector": "^3.2"
+        "symfony/dom-crawler": "^3.2"
     },
     "require-dev": {
         "phing/phing": "^2.16",
@@ -18,12 +16,15 @@
         "squizlabs/php_codesniffer": "^3.0",
         "sebastian/phpcpd": "^3.0"
     },
+    "suggest": {
+        "php-ds/php-ds": "Allow IDE autocomplete for editing the component"
+    },
     "autoload": {
         "psr-4": {
             "CViniciusSDias\\GoogleCrawler\\": "src/"
         }
     },
-    "license": "GPL",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "CViniciusSDias",
