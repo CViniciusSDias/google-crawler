@@ -5,9 +5,10 @@
     "type": "library",
     "require": {
         "php": ">=7.1",
-        "ext-ds": "*",
         "guzzlehttp/guzzle": "^6.2",
-        "symfony/dom-crawler": "^3.2"
+        "symfony/dom-crawler": "^3.2",
+        "ext-ds": "*",
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "phing/phing": "^2.16",
