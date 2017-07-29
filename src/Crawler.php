@@ -18,17 +18,25 @@ use DOMElement;
  */
 class Crawler
 {
-    /** @var string $url*/
-    protected $url;
     /** @var GoogleProxyInterface $proxy */
     protected $proxy;
+    /** @var SearchTermInterface $searchTerm */
+    private $searchTerm;
+    /** @var string $countrySpecificSuffix */
+    private $countrySpecificSuffix;
+    /** @var string $countryCode */
+    private $countryCode;
 
-    public function __construct(SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null)
-    {
-        // You can concatenate &gl=XX replacing XX with your country code (BR = Brazil; US = United States)
-        // You should also add the coutry specific part of the google url, (like .br or .es)
-        $this->url = "http://www.google.com/search?q=$searchTerm&num=100";
+    public function __construct(
+        SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
+        string $countrySpecificSuffix = '', string $countryCode = ''
+    ) {
         $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
+        $this->searchTerm = $searchTerm;
+        $this->countrySpecificSuffix = empty($countrySpecificSuffix) || mb_stripos($countrySpecificSuffix, '.') === 0
+            ? $countrySpecificSuffix : ".$countrySpecificSuffix";
+
+        $this->countryCode = mb_strtoupper($countryCode);
     }
 
     /**
@@ -36,12 +44,13 @@ class Crawler
      *
      * @return ResultList
      * @throws \GuzzleHttp\Exception\ServerException If the proxy was overused
-     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable
+     * @throws \GuzzleHttp\Exception\ConnectException If the proxy is unavailable or $countrySpecificSuffix is invalid
      */
     public function getResults(): ResultList
     {
+        $googleUrl = $this->getGoogleUrl();
         /** @var ResponseInterface $response */
-        $response = $this->proxy->getHttpResponse($this->url);
+        $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
         $googleResults = $domCrawler->filterXPath('//div[@class="g" and h3[@class="r" and a]]');
@@ -79,7 +88,7 @@ class Crawler
         $googleResult = new Result();
         $googleResult
             ->setTitle($resultLink->getNode()->nodeValue)
-            ->setUrl($this->getUrl($resultLink->getUri()))
+            ->setUrl($this->parseUrl($resultLink->getUri()))
             ->setDescription($description);
 
         return $googleResult;
@@ -92,8 +101,25 @@ class Crawler
      * @return string
      * @throws InvalidResultException
      */
-    private function getUrl(string $url): string
+    private function parseUrl(string $url): string
     {
         return $this->proxy->parseUrl($url);
+    }
+
+    /**
+     * Assembles the Google URL using the previously informed data
+     */
+    private function getGoogleUrl(): string
+    {
+        $domain = 'https://www.google.com';
+        if (!empty($this->countrySpecificSuffix)) {
+            $domain .= $this->countrySpecificSuffix;
+        }
+        $url = "$domain/search?q={$this->searchTerm}&num=100";
+        if (!empty($this->countryCode)) {
+            $url .= "&gl={$this->countryCode}";
+        }
+
+        return $url;
     }
 }
