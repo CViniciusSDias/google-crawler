@@ -76,6 +76,4 @@ class Result
         $this->description = $description;
         return $this;
     }
-
-
 }
