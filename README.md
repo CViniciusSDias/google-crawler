@@ -24,14 +24,14 @@ $ composer require cviniciussdias/google-crawler
 ```
 CViniciusSDias\GoogleCrawler\Crawler::__construct(
     SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
-    string $countrySpecificSuffix = '', string $countryCode = ''
+    string $googleDomain = 'google.com', string $countryCode = ''
 )
 ```
 
 #### Parameters
 - $searchTerm Term that will be searched on Google
 - $proxy Online proxy service that will be used to access Google [optional]
-- $countrySpecificSuffix Suffix for a specific country that will be added to Google URL, like '.br' or '.de' [optional]
+- $googleDomain Your country specific google domain, like google.de, google.com.br, etc. [optional]
 - $countryCode Country code that will be added to `gl` parameter on Google's url, indicating the location of the search. E.g. 'BR', 'US', 'DE' [optional]
 
 ## Examples
