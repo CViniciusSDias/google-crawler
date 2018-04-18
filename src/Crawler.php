@@ -83,7 +83,7 @@ class Crawler
      * @return Result
      * @throws InvalidResultException
      */
-    private function parseResult(Link $resultLink, DOMElement $descriptionElement): Result
+    private function parseResult(Link $resultLink, ?DOMElement $descriptionElement): Result
     {
         $description = $descriptionElement->nodeValue
             ?? 'A description for this result isn\'t available due to the robots.txt file.';
