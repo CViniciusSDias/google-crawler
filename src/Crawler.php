@@ -65,6 +65,10 @@ class Crawler
             $resultLink = new Link($linkElement, 'http://google.com/');
             $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
             try {
+                if ($this->isImageSuggestion($resultCrawler)) {
+                    throw new InvalidResultException();
+                }
+
                 $googleResult = $this->parseResult($resultLink, $descriptionElement);
                 $resultList->addResult($googleResult);
             } catch (InvalidResultException $invalidResult) {
@@ -121,5 +125,14 @@ class Crawler
         }
 
         return $url;
+    }
+
+    private function isImageSuggestion(DomCrawler $resultCrawler)
+    {
+        $resultCount = $resultCrawler
+            ->filterXpath('//div/a')
+            ->count();
+
+        return $resultCount > 0;
     }
 }
