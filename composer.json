@@ -12,7 +12,6 @@
         "ext-dom": "*"
     },
     "require-dev": {
-        "phing/phing": "^2.16",
         "phpunit/phpunit": "^8.0",
         "phpmd/phpmd" : "^2.6",
         "squizlabs/php_codesniffer": "^3.0",
@@ -20,6 +19,18 @@
     },
     "suggest": {
         "php-ds/php-ds": "Allow IDE autocomplete for editing the component"
+    },
+    "scripts": {
+        "phpmd": "phpmd src text cleancode,codesize,controversial,design,naming,unusedcode",
+        "phpcs": "phpcs --standard=PSR12 src",
+        "phpcpd": "phpcpd src",
+        "phpunit": "phpunit --coverage-clover=coverage.clover",
+        "test": [
+            "@phpmd",
+            "@phpcs",
+            "@phpcpd",
+            "@phpunit"
+        ]
     },
     "autoload": {
         "psr-4": {
