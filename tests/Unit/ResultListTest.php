@@ -1,6 +1,8 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Unit;
 
+use CViniciusSDias\GoogleCrawler\Result;
+use CViniciusSDias\GoogleCrawler\ResultList;
 use PHPUnit\Framework\TestCase;
 
 class ResultListTest extends TestCase

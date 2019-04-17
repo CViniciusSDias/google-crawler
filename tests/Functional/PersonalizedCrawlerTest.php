@@ -1,8 +1,9 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Functional;
 
-require_once __DIR__ . '/AbstractCrawlerTest.php';
+use CViniciusSDias\GoogleCrawler\Crawler;
 use CViniciusSDias\GoogleCrawler\Proxy\NoProxy;
+use CViniciusSDias\GoogleCrawler\SearchTerm;
 use GuzzleHttp\Exception\GuzzleException;
 
 class PersonalizedCrawlerTest extends AbstractCrawlerTest
@@ -18,16 +19,10 @@ class PersonalizedCrawlerTest extends AbstractCrawlerTest
 
     public function testSearchWithInvalidCountrySuffixMustFail()
     {
+        $this->expectException(GuzzleException::class);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($searchTerm, new NoProxy(), 'google.ab');
 
-        try {
-            $crawler->getResults();
-            static::fail();
-        } catch (\Throwable $exception) {
-            if ($exception instanceof GuzzleException) {
-                static::assertTrue(true);
-            }
-        }
+        $crawler->getResults();
     }
 }

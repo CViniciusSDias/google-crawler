@@ -29,7 +29,7 @@ class KProxy implements GoogleProxyInterface
             throw new \InvalidArgumentException();
         }
         $this->serverNumber = $serverNumber;
-        $this->endpoint = "https://server{$serverNumber}.kproxy.com";
+        $this->endpoint = "http://server{$serverNumber}.kproxy.com";
     }
 
     /**

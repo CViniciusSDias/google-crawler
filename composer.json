@@ -5,17 +5,18 @@
     "type": "library",
     "require": {
         "php": ">=7.1",
-        "guzzlehttp/guzzle": "^6.2",
-        "symfony/dom-crawler": "^3.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/dom-crawler": "^4.2",
         "ext-ds": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-dom": "*"
     },
     "require-dev": {
         "phing/phing": "^2.16",
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^8.0",
         "phpmd/phpmd" : "^2.6",
         "squizlabs/php_codesniffer": "^3.0",
-        "sebastian/phpcpd": "^3.0"
+        "sebastian/phpcpd": "^4.1"
     },
     "suggest": {
         "php-ds/php-ds": "Allow IDE autocomplete for editing the component"
@@ -23,6 +24,7 @@
     "autoload": {
         "psr-4": {
             "CViniciusSDias\\GoogleCrawler\\": "src/"
+            "CViniciusSDias\\GoogleCrawler\\Tests": "tests/"
         }
     },
     "license": "GPL-3.0",

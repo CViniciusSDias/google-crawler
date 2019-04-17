@@ -1,7 +1,9 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Unit;
 
+use CViniciusSDias\GoogleCrawler\Crawler;
 use CViniciusSDias\GoogleCrawler\Proxy\NoProxy;
+use CViniciusSDias\GoogleCrawler\SearchTerm;
 use PHPUnit\Framework\TestCase;
 
 class CrawlerTest extends TestCase
@@ -31,16 +33,16 @@ class CrawlerTest extends TestCase
         static::assertEquals('https://google.com/search?q=Test&num=100', $url);
     }
 
-    /** @expectedException \InvalidArgumentException */
     public function testTryingToInstantiateACrawlerWithHttpOnGoogleDomainMustFail()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $domain = 'http://google.com';
         new Crawler(new SearchTerm(''), new NoProxy(), $domain);
     }
 
-    /** @expectedException \InvalidArgumentException */
     public function testTryingToInstantiateACrawlerWithoutGoogleOnTheDomainMustFail()
     {
+        $this->expectException(\InvalidArgumentException::class);
         new Crawler(new SearchTerm(''), new NoProxy(), 'invalid-domain');
     }
 

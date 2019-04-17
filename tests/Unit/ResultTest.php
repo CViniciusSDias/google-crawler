@@ -1,15 +1,15 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Unit;
 
+use CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException;
+use CViniciusSDias\GoogleCrawler\Result;
 use PHPUnit\Framework\TestCase;
 
 class ResultTest extends TestCase
 {
-    /**
-     * @expectedException \CViniciusSDias\GoogleCrawler\Exception\InvalidUrlException
-     */
     public function testInvalidUrlMustThrowException()
     {
+        $this->expectException(InvalidUrlException::class);
         $result = new Result();
         $result->setUrl('teste');
     }

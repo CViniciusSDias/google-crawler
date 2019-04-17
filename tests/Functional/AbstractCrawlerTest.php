@@ -1,6 +1,8 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Functional;
 
+use CViniciusSDias\GoogleCrawler\Result;
+use CViniciusSDias\GoogleCrawler\ResultList;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractCrawlerTest extends TestCase

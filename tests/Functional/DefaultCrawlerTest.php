@@ -1,9 +1,11 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Functional;
 
-require_once __DIR__ . '/AbstractCrawlerTest.php';
+use CViniciusSDias\GoogleCrawler\Crawler;
 use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
 use CViniciusSDias\GoogleCrawler\Proxy\KProxy;
+use CViniciusSDias\GoogleCrawler\SearchTerm;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ServerException;
 
@@ -46,7 +48,9 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
 
             $this->checkResults($results);
         } catch (ServerException | ConnectException $e) {
-            static::markTestSkipped('Proxy is unavailable for google searches now.');
+            static::markTestIncomplete('Proxy is unavailable for google searches now.');
+        } catch (ClientException $e) {
+            static::markTestIncomplete('Blocked by google "Too Many Requests" error');
         }
     }
 

@@ -1,6 +1,7 @@
 <?php
-namespace CViniciusSDias\GoogleCrawler;
+namespace CViniciusSDias\GoogleCrawler\Tests\Unit;
 
+use CViniciusSDias\GoogleCrawler\SearchTerm;
 use PHPUnit\Framework\TestCase;
 
 class SearchTermTest extends TestCase
