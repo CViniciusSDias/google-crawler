@@ -65,7 +65,7 @@ class Crawler
             $resultLink = new Link($linkElement, 'http://google.com/');
             $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
             try {
-                if ($this->isImageSuggestion($resultCrawler)) {
+                if (is_null($descriptionElement) || $this->isImageSuggestion($resultCrawler)) {
                     throw new InvalidResultException();
                 }
 
