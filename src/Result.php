@@ -73,6 +73,7 @@ class Result
      */
     public function setDescription(string $description): Result
     {
+        $description = trim(str_replace("\n", ' ', $description));
         $this->description = $description;
         return $this;
     }
