@@ -23,8 +23,8 @@
     },
     "autoload": {
         "psr-4": {
-            "CViniciusSDias\\GoogleCrawler\\": "src/"
-            "CViniciusSDias\\GoogleCrawler\\Tests": "tests/"
+            "CViniciusSDias\\GoogleCrawler\\": "src/",
+            "CViniciusSDias\\GoogleCrawler\\Tests\\": "tests/"
         }
     },
     "license": "GPL-3.0",
