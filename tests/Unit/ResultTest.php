@@ -22,4 +22,18 @@ class ResultTest extends TestCase
 
         static::assertEquals($url, $result->getUrl());
     }
+
+    public function testDescriptionMustRemoveNewlineCharsAndTrim()
+    {
+        $result = new Result();
+        $description = <<<EOL
+Test
+description
+with
+newline chars
+EOL;
+        $result->setDescription($description);
+
+        static::assertEquals('Test description with newline chars', $result->getDescription());
+    }
 }
