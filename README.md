@@ -72,7 +72,7 @@ There you'll see all the available proxies.
 
 ### Requirements
 
-- This component works with PHP 7.1 or above
+- This component works with PHP 7.2 or above
 - This component requires the extension [php-ds](http://php.net/manual/pt_BR/book.ds.php) to be installed
 
 ### Author
