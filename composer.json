@@ -34,7 +34,11 @@
     },
     "autoload": {
         "psr-4": {
-            "CViniciusSDias\\GoogleCrawler\\": "src/",
+            "CViniciusSDias\\GoogleCrawler\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "CViniciusSDias\\GoogleCrawler\\Tests\\": "tests/"
         }
     },
