@@ -28,8 +28,10 @@ class Crawler
     private $countryCode;
 
     public function __construct(
-        SearchTermInterface $searchTerm, GoogleProxyInterface $proxy = null,
-        string $googleDomain = 'google.com', string $countryCode = ''
+        SearchTermInterface $searchTerm,
+        GoogleProxyInterface $proxy = null,
+        string $googleDomain = 'google.com',
+        string $countryCode = ''
     ) {
         $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
         $this->searchTerm = $searchTerm;
