@@ -29,9 +29,13 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($searchTerm, $commonProxy);
-        $results = $crawler->getResults();
+        try {
+            $results = $crawler->getResults();
 
-        $this->checkResults($results);
+            $this->checkResults($results);
+        } catch (ConnectException $exception) {
+            static::markTestIncomplete("Timeout error on $endpoint.");
+        }
     }
 
     /**
