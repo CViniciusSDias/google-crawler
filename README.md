@@ -46,7 +46,7 @@ use CViniciusSDias\GoogleCrawler\{
 $searchTerm = new SearchTerm('Test');
 $crawler = new Crawler($searchTerm); // or new Crawler($searchTerm, new NoProxy());
 
-$results = $crawler->getResults();
+$resultList = $crawler->getResults();
 ```
 
 ### With some proxy
@@ -60,13 +60,22 @@ $searchTerm = new SearchTerm('Test');
 $commonProxy = new CommonProxy('https://us.hideproxy.me/includes/process.php?action=update');
 $crawler = new Crawler($searchTerm, $commonProxy);
 
-$results = $crawler->getResults();
+$resultList = $crawler->getResults();
 ```
 
 #### More details on proxies
 To know more details about which proxies are currently
-supported, see the `tests/Functional/CrawlerTest.php` file.
+supported, see the files inside `tests/Functional` folder.
 There you'll see all the available proxies.
+
+### Iterating over results
+```php
+foreach ($resultList as $result) {
+    $title = $result->getTitle();
+    $url = $result->getUrl();
+    $description = $result->getDescription();
+}
+```
 
 ## About
 
