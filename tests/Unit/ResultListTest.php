@@ -53,7 +53,6 @@ class ResultListTest extends TestCase
 
     private function getResultMock(): Result
     {
-        return $this->getMockBuilder(Result::class)
-            ->getMock();
+        return $this->createMock(Result::class);
     }
 }

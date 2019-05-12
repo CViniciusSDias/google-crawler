@@ -2,3 +2,4 @@ vendor
 qa
 sami.php
 .idea
+.phpunit.result.cache
