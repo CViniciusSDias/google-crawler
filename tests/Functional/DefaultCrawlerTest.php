@@ -35,6 +35,8 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
             $this->checkResults($results);
         } catch (ConnectException $exception) {
             static::markTestIncomplete("Timeout error on $endpoint.");
+        } catch (ClientException $e) {
+            static::markTestIncomplete('Blocked by google "Too Many Requests" error');
         }
     }
 
