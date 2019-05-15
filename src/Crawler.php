@@ -6,7 +6,6 @@ use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
     GoogleProxyInterface, NoProxy
 };
-use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 use Symfony\Component\DomCrawler\Link;
 use DOMElement;
@@ -55,7 +54,6 @@ class Crawler
     public function getResults(): ResultList
     {
         $googleUrl = $this->getGoogleUrl();
-        /** @var ResponseInterface $response */
         $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
@@ -72,7 +70,7 @@ class Crawler
                 $resultList->addResult($parsedResult);
             } catch (InvalidResultException $exception) {
                 error_log(
-                    'Error parsing the following result: ' . print_r($googleResultElement),
+                    'Error parsing the following result: ' . print_r($googleResultElement, true),
                     3,
                     __DIR__ . '/../var/log'
                 );
@@ -143,6 +141,10 @@ class Crawler
     {
         $resultCrawler = new DomCrawler($result);
         $linkElement = $resultCrawler->filterXPath('//h3[@class="r"]/a')->getNode(0);
+        if (is_null($linkElement)) {
+            throw new InvalidResultException('Link element not found');
+        }
+
         $resultLink = new Link($linkElement, 'http://google.com/');
         $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
 

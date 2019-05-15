@@ -18,35 +18,23 @@ class Result
     /** @var string $description */
     private $description;
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return Result
-     */
     public function setTitle(string $title): Result
     {
         $this->title = $title;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUrl(): string
     {
         return $this->url;
     }
 
     /**
-     * @param string $url
-     * @return Result
      * @throws InvalidUrlException
      */
     public function setUrl(string $url): Result
@@ -59,18 +47,11 @@ class Result
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     * @return Result
-     */
     public function setDescription(string $description): Result
     {
         $description = trim(str_replace("\n", ' ', $description));
