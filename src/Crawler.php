@@ -1,6 +1,7 @@
 <?php
 namespace CViniciusSDias\GoogleCrawler;
 
+use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Proxy\{
     GoogleProxyInterface, NoProxy
@@ -58,23 +59,23 @@ class Crawler
         $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
-        $googleResults = $domCrawler->filterXPath('//div[@class="g" and h3[@class="r" and a]]');
-        $resultList = new ResultList($googleResults->count());
+        $googleResultList = $domCrawler->filterXPath('//div[@class="g" and h3[@class="r" and a]]');
+        if ($googleResultList->count() === 0) {
+            throw new InvalidGoogleHtmlException('No parseable element found');
+        }
 
-        foreach ($googleResults as $result) {
-            $resultCrawler = new DomCrawler($result);
-            $linkElement = $resultCrawler->filterXPath('//h3[@class="r"]/a')->getNode(0);
-            $resultLink = new Link($linkElement, 'http://google.com/');
-            $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
+        $resultList = new ResultList($googleResultList->count());
+
+        foreach ($googleResultList as $googleResultElement) {
             try {
-                if (is_null($descriptionElement) || $this->isImageSuggestion($resultCrawler)) {
-                    throw new InvalidResultException();
-                }
-
-                $googleResult = $this->parseResult($resultLink, $descriptionElement);
-                $resultList->addResult($googleResult);
-            } catch (InvalidResultException $invalidResult) {
-                // Maybe log this exception. Other than that, there's nothing to do, cause it isn't an error.
+                $parsedResult = $this->parseDomElement($googleResultElement);
+                $resultList->addResult($parsedResult);
+            } catch (InvalidResultException $exception) {
+                error_log(
+                    'Error parsing the following result: ' . print_r($googleResultElement),
+                    3,
+                    __DIR__ . '/../var/log'
+                );
             }
         }
 
@@ -89,7 +90,7 @@ class Crawler
      * @return Result
      * @throws InvalidResultException
      */
-    private function parseResult(Link $resultLink, DOMElement $descriptionElement): Result
+    private function createResult(Link $resultLink, DOMElement $descriptionElement): Result
     {
         $description = $descriptionElement->nodeValue
             ?? 'A description for this result isn\'t available due to the robots.txt file.';
@@ -136,5 +137,24 @@ class Crawler
             ->count();
 
         return $resultCount > 0;
+    }
+
+    private function parseDomElement(DOMElement $result): Result
+    {
+        $resultCrawler = new DomCrawler($result);
+        $linkElement = $resultCrawler->filterXPath('//h3[@class="r"]/a')->getNode(0);
+        $resultLink = new Link($linkElement, 'http://google.com/');
+        $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
+
+        if (is_null($descriptionElement)) {
+            throw new InvalidResultException('Description element not found');
+        }
+
+        if ($this->isImageSuggestion($resultCrawler)) {
+            throw new InvalidResultException('Result is an image suggestion');
+        }
+
+        $googleResult = $this->createResult($resultLink, $descriptionElement);
+        return $googleResult;
     }
 }
