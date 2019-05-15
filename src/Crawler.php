@@ -72,7 +72,7 @@ class Crawler
                 error_log(
                     'Error parsing the following result: ' . print_r($googleResultElement, true),
                     3,
-                    __DIR__ . '/../var/log'
+                    __DIR__ . '/../var/log/crawler-errors.log'
                 );
             }
         }

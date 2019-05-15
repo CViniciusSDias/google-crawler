@@ -3,3 +3,4 @@ qa
 sami.php
 .idea
 .phpunit.result.cache
+var/log/crawler-errors.log
