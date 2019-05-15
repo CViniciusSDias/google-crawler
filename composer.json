@@ -16,7 +16,8 @@
         "phpmd/phpmd" : "^2.6",
         "squizlabs/php_codesniffer": "^3.0",
         "sebastian/phpcpd": "^4.1",
-        "infection/infection": "^0.12.2"
+        "infection/infection": "^0.12.2",
+        "nunomaduro/phpinsights": "^1.0"
     },
     "suggest": {
         "php-ds/php-ds": "Allow IDE autocomplete for editing the component"
