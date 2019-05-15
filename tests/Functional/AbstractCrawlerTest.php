@@ -19,7 +19,7 @@ abstract class AbstractCrawlerTest extends TestCase
         /** @var Result $result */
         foreach ($results as $result) {
             static::assertInstanceOf(Result::class, $result);
-            static::assertTrue(filter_var($result->getUrl(), FILTER_VALIDATE_URL) !== false);
+            static::assertNotFalse(filter_var($result->getUrl(), FILTER_VALIDATE_URL));
             static::assertNotEmpty($result->getTitle());
             static::assertNotNull($result->getDescription());
         }
