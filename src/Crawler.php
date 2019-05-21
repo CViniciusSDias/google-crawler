@@ -36,12 +36,12 @@ class Crawler
         $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
         $this->searchTerm = $searchTerm;
 
-        if (mb_stripos($googleDomain, 'google.') === false || mb_stripos($googleDomain, 'http') === 0) {
+        if (stripos($googleDomain, 'google.') === false || stripos($googleDomain, 'http') === 0) {
             throw new \InvalidArgumentException('Invalid google domain');
         }
         $this->googleDomain = $googleDomain;
 
-        $this->countryCode = mb_strtoupper($countryCode);
+        $this->countryCode = strtoupper($countryCode);
     }
 
     /**
