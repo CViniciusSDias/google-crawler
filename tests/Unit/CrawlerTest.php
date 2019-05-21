@@ -30,6 +30,14 @@ class CrawlerTest extends TestCase
         static::assertEquals('https://www.google.com.br/search?q=Test&num=100&gl=BR', $url);
     }
 
+    public function testCrawlerGetsCorrectUrlWithCountryCodeWithLowercaseLetters()
+    {
+        $crawler = new Crawler(new SearchTerm('Test'), new NoProxy(), 'www.google.com.br', 'br');
+        $url = $this->getUrlFromCrawler($crawler);
+
+        static::assertEquals('https://www.google.com.br/search?q=Test&num=100&gl=BR', $url);
+    }
+
     public function testDefaultCrawlerGetsCorrectUrl()
     {
         $crawler = new Crawler(new SearchTerm('Test'));

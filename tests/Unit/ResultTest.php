@@ -27,10 +27,10 @@ class ResultTest extends TestCase
     {
         $result = new Result();
         $description = <<<EOL
-Test
+ Test
 description
 with
-newline chars
+newline chars 
 EOL;
         $result->setDescription($description);
 

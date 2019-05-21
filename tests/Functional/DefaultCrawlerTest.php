@@ -2,6 +2,7 @@
 namespace CViniciusSDias\GoogleCrawler\Tests\Functional;
 
 use CViniciusSDias\GoogleCrawler\Crawler;
+use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
 use CViniciusSDias\GoogleCrawler\Proxy\CommonProxy;
 use CViniciusSDias\GoogleCrawler\Proxy\KProxy;
 use CViniciusSDias\GoogleCrawler\SearchTerm;
@@ -37,6 +38,8 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
             static::markTestIncomplete("Timeout error on $endpoint.");
         } catch (ClientException $e) {
             static::markTestIncomplete('Blocked by google "Too Many Requests" error');
+        } catch (InvalidGoogleHtmlException $e) {
+            static::markTestSkipped($e->getMessage());
         }
     }
 
@@ -57,6 +60,8 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
             static::markTestIncomplete('Proxy is unavailable for google searches now.');
         } catch (ClientException $e) {
             static::markTestIncomplete('Blocked by google "Too Many Requests" error');
+        } catch (InvalidGoogleHtmlException $e) {
+            static::markTestSkipped($e->getMessage());
         }
     }
 
