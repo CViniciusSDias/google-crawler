@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78e8a5c2735c8c0978ae045a33922865",
+    "content-hash": "6cbfc5ed22003c60fb915e013b9fbe85",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -1103,16 +1103,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "dev-master",
+            "version": "0.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "68e0636973cdcfc7178eee88842255e6189c23c4"
+                "reference": "add7355edff8229195e4311a9c83cc6b42224d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/68e0636973cdcfc7178eee88842255e6189c23c4",
-                "reference": "68e0636973cdcfc7178eee88842255e6189c23c4",
+                "url": "https://api.github.com/repos/infection/infection/zipball/add7355edff8229195e4311a9c83cc6b42224d8a",
+                "reference": "add7355edff8229195e4311a9c83cc6b42224d8a",
                 "shasum": ""
             },
             "require": {
@@ -1188,7 +1188,7 @@
                 "testing",
                 "unit testing"
             ],
-            "time": "2019-05-06T11:22:04+00:00"
+            "time": "2019-05-18T15:24:49+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -6183,9 +6183,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "infection/infection": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
