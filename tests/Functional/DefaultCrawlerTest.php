@@ -27,6 +27,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
      */
     public function testSearchResultsWithCommonProxy(string $endpoint)
     {
+        $this->markTestSkipped('Implementation outdated');
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($commonProxy);

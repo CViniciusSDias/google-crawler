@@ -3,8 +3,11 @@ namespace CViniciusSDias\GoogleCrawler\Tests\Unit;
 
 use CViniciusSDias\GoogleCrawler\Crawler;
 use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
+use CViniciusSDias\GoogleCrawler\Proxy\GoogleProxyAbstractFactory;
 use CViniciusSDias\GoogleCrawler\Proxy\GoogleProxyInterface;
+use CViniciusSDias\GoogleCrawler\Proxy\HttpClient\GoogleHttpClient;
 use CViniciusSDias\GoogleCrawler\Proxy\NoProxy;
+use CViniciusSDias\GoogleCrawler\Proxy\NoProxyAbstractFactory;
 use CViniciusSDias\GoogleCrawler\SearchTerm;
 use CViniciusSDias\GoogleCrawler\SearchTermInterface;
 use PHPUnit\Framework\TestCase;
@@ -17,14 +20,14 @@ class CrawlerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $domain = 'http://google.com';
-        $crawler = new Crawler(new NoProxy());
+        $crawler = new Crawler(new NoProxyAbstractFactory());
         $crawler->getResults(new SearchTerm(''), $domain);
     }
 
     public function testTryingToInstantiateACrawlerWithoutGoogleOnTheDomainMustFail()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $crawler = new Crawler(new NoProxy());
+        $crawler = new Crawler(new NoProxyAbstractFactory());
         $crawler->getResults(new SearchTerm(''), 'invalid-domain');
     }
 
@@ -39,15 +42,15 @@ class CrawlerTest extends TestCase
         $responseMock->method('getBody')
             ->willReturn($streamMock);
 
-        $proxyMock = $this->createMock(GoogleProxyInterface::class);
-        $proxyMock->method('getHttpResponse')
+        $googleHttpClient = $this->createMock(GoogleHttpClient::class);
+        $googleHttpClient->method('getHttpResponse')
             ->willReturn($responseMock);
-        $searchTermMock = $this->createMock(SearchTermInterface::class);
-        $searchTermMock
-            ->method('__toString')
-            ->willReturn('');
+        $factory = $this->createStub(GoogleProxyAbstractFactory::class);
+        $factory
+            ->method('createGoogleHttpClient')
+            ->willReturn($googleHttpClient);
 
-        $crawler = new Crawler($proxyMock);
-        $crawler->getResults($searchTermMock);
+        $crawler = new Crawler($factory);
+        $crawler->getResults(new SearchTerm(''));
     }
 }

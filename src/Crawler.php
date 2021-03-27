@@ -2,14 +2,11 @@
 namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
-use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
-use CViniciusSDias\GoogleCrawler\Proxy\{GoogleProxyInterface,
-    HttpClient\GoogleHttpClient,
-    NoProxy,
-    UrlParser\GoogleUrlParser};
+use CViniciusSDias\GoogleCrawler\Proxy\GoogleProxyAbstractFactory;
+use CViniciusSDias\GoogleCrawler\Proxy\HttpClient\GoogleHttpClient;
+use CViniciusSDias\GoogleCrawler\Proxy\NoProxyAbstractFactory;
+use CViniciusSDias\GoogleCrawler\Proxy\UrlParser\GoogleUrlParser;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
-use Symfony\Component\DomCrawler\Link;
-use DOMElement;
 
 /**
  * Google Crawler
@@ -19,10 +16,19 @@ use DOMElement;
  */
 class Crawler
 {
+    private GoogleHttpClient $httpClient;
+    private GoogleUrlParser $urlParser;
+
     public function __construct(
-        private GoogleUrlParser $parser,
-        private GoogleHttpClient $httpclient
-    ) { }
+        GoogleProxyAbstractFactory $factory = null
+    ) {
+        if ($factory === null) {
+            $factory = new NoProxyAbstractFactory();
+        }
+
+        $this->httpClient = $factory->createGoogleHttpClient();
+        $this->urlParser = $factory->createGoogleUrlParser();
+    }
 
     /**
      * Returns the 100 first found results for the specified search term
@@ -46,14 +52,14 @@ class Crawler
         if (!empty($countryCode)) {
             $googleUrl .= "&gl={$countryCode}";
         }
-        $response = $this->httpclient->getHttpResponse($googleUrl);
+        $response = $this->httpClient->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
         $googleResultList = $this->createGoogleResultList($domCrawler);
 
         $resultList = new ResultList($googleResultList->count());
 
-        $domElementParser = new DomElementParser($this->parser);
+        $domElementParser = new DomElementParser($this->urlParser);
         foreach ($googleResultList as $googleResultElement) {
             $parsedResultMaybe = $domElementParser->parse($googleResultElement);
             $parsedResultMaybe
