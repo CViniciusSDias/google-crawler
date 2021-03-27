@@ -126,15 +126,6 @@ class Crawler
         return $url;
     }
 
-    private function isImageSuggestion(DomCrawler $resultCrawler)
-    {
-        $resultCount = $resultCrawler
-            ->filterXpath('//img')
-            ->count();
-
-        return $resultCount > 0;
-    }
-
     private function parseDomElement(DOMElement $result): Result
     {
         $resultCrawler = new DomCrawler($result);
@@ -150,7 +141,7 @@ class Crawler
             throw new InvalidResultException('Description element not found');
         }
 
-        if ($this->isImageSuggestion($resultCrawler)) {
+        if ($resultCrawler->filterXpath('//img')->count() > 0) {
             throw new InvalidResultException('Result is an image suggestion');
         }
 
