@@ -75,7 +75,7 @@ class Crawler
     {
         $googleResultList = $domCrawler->filterXPath('//div[@class="ZINbbc xpd O9g5cc uUPGi"]');
         if ($googleResultList->count() === 0) {
-            throw new InvalidGoogleHtmlException('No parseable element found');
+            throw new InvalidGoogleHtmlException('No parsable element found');
         }
 
         return $googleResultList;
