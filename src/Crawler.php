@@ -48,10 +48,7 @@ class Crawler
         $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
-        $googleResultList = $domCrawler->filterXPath('//div[@class="ZINbbc xpd O9g5cc uUPGi"]');
-        if ($googleResultList->count() === 0) {
-            throw new InvalidGoogleHtmlException('No parseable element found');
-        }
+        $googleResultList = $this->createGoogleResultList($domCrawler);
 
         $resultList = new ResultList($googleResultList->count());
 
@@ -69,6 +66,16 @@ class Crawler
         }
 
         return $resultList;
+    }
+
+    private function createGoogleResultList(DomCrawler $domCrawler): DomCrawler
+    {
+        $googleResultList = $domCrawler->filterXPath('//div[@class="ZINbbc xpd O9g5cc uUPGi"]');
+        if ($googleResultList->count() === 0) {
+            throw new InvalidGoogleHtmlException('No parseable element found');
+        }
+
+        return $googleResultList;
     }
 
     /**
