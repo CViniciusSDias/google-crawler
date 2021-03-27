@@ -6,6 +6,7 @@ use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
 use CViniciusSDias\GoogleCrawler\Proxy\GoogleProxyInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Link;
+use Yitznewton\Maybe\Maybe;
 
 class DomElementParser
 {
@@ -13,31 +14,31 @@ class DomElementParser
     {
     }
 
-    public function parse(\DOMElement $resultDomElement): Result
+    public function parse(\DOMElement $resultDomElement): Maybe
     {
         $resultCrawler = new Crawler($resultDomElement);
         $linkElement = $resultCrawler->filterXPath('//a')->getNode(0);
         if (is_null($linkElement)) {
-            throw new InvalidResultException('Link element not found');
+            return new Maybe(null);
         }
 
         $resultLink = new Link($linkElement, 'http://google.com/');
         $descriptionElement = $resultCrawler->filterXPath('//div[@class="BNeawe s3v9rd AP7Wnd"]//div[@class="BNeawe s3v9rd AP7Wnd"]')->getNode(0);
 
         if (is_null($descriptionElement)) {
-            throw new InvalidResultException('Description element not found');
+            return new Maybe(null);
         }
 
         $isImageSuggestion = $resultCrawler->filterXpath('//img')->count() > 0;
         if ($isImageSuggestion) {
-            throw new InvalidResultException('Result is an image suggestion');
+            return new Maybe(null);
         }
 
         if (strpos($resultLink->getUri(), 'http://google.com') === false) {
-            throw new InvalidResultException('Result is a google suggestion');
+            return new Maybe(null);
         }
 
-        return $this->createResult($resultLink, $descriptionElement);
+        return new Maybe($this->createResult($resultLink, $descriptionElement));
     }
 
     /**

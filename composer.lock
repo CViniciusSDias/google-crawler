@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "444ac8eb0cc0e2257eafa706677a8899",
+    "content-hash": "a579716e203997804be7b913d44d9de6",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -837,6 +837,52 @@
                 }
             ],
             "time": "2021-01-07T16:49:33+00:00"
+        },
+        {
+            "name": "yitznewton/maybe-php",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yitznewton/maybe-php.git",
+                "reference": "28f52205bc7b25f33ffc725d7a019937d75a01b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yitznewton/maybe-php/zipball/28f52205bc7b25f33ffc725d7a019937d75a01b2",
+                "reference": "28f52205bc7b25f33ffc725d7a019937d75a01b2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "dev-master",
+                "phpmd/phpmd": "~2.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yitznewton\\Maybe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Yitzchak Schaffer",
+                    "email": "yitznewton@hotmail.com"
+                }
+            ],
+            "description": "A Maybe monad implementation for PHP",
+            "support": {
+                "issues": "https://github.com/yitznewton/maybe-php/issues",
+                "source": "https://github.com/yitznewton/maybe-php/tree/master"
+            },
+            "time": "2014-11-03T02:23:04+00:00"
         }
     ],
     "packages-dev": [
@@ -2859,7 +2905,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2",
+        "php": ">=8.0",
         "ext-dom": "*"
     },
     "platform-dev": [],

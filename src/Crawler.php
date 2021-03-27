@@ -58,16 +58,9 @@ class Crawler
 
         $domElementParser = new DomElementParser($this->proxy);
         foreach ($googleResultList as $googleResultElement) {
-            try {
-                $parsedResult = $domElementParser->parse($googleResultElement);
-                $resultList->addResult($parsedResult);
-            } catch (InvalidResultException $exception) {
-                error_log(
-                    'Error parsing the following result: ' . print_r($googleResultElement, true),
-                    3,
-                    __DIR__ . '/../var/log/crawler-errors.log'
-                );
-            }
+            $parsedResultMaybe = $domElementParser->parse($googleResultElement);
+            $parsedResultMaybe
+                ->select(fn (Result $parsedResult) => $resultList->addResult($parsedResult));
         }
 
         return $resultList;
