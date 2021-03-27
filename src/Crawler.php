@@ -24,7 +24,7 @@ class Crawler
     public function __construct(
         GoogleProxyInterface $proxy = null
     ) {
-        $this->proxy = is_null($proxy) ? new NoProxy() : $proxy;
+        $this->proxy = $proxy ?? new NoProxy();
     }
 
     /**
