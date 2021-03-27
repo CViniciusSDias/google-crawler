@@ -26,9 +26,9 @@ interface GoogleProxyInterface
     /**
      * Parses an URL based on how they are encoded in the proxy service
      *
-     * @param string $url
+     * @param string $googleUrl
      * @return string
      * @throws InvalidResultException
      */
-    public function parseUrl(string $url): string;
+    public function parseUrl(string $googleUrl): string;
 }

@@ -26,16 +26,16 @@ class NoProxy implements GoogleProxyInterface
     }
 
     /** {@inheritdoc} */
-    public function parseUrl(string $url): string
+    public function parseUrl(string $googleUrl): string
     {
-        $urlParts = parse_url($url);
+        $urlParts = parse_url($googleUrl);
         parse_str($urlParts['query'], $queryStringParams);
 
-        $url = filter_var($queryStringParams['q'], FILTER_VALIDATE_URL);
-        if (!$url) {
+        $resultUrl = filter_var($queryStringParams['q'], FILTER_VALIDATE_URL);
+        if (!$resultUrl) {
             throw new InvalidResultException();
         }
 
-        return $url;
+        return $resultUrl;
     }
 }
