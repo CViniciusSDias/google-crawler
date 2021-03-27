@@ -57,7 +57,7 @@ class Crawler
         $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
-        $googleResultList = $domCrawler->filterXPath('//div[@class="g" and h3[@class="r" and a]]');
+        $googleResultList = $domCrawler->filterXPath('//div[@class="ZINbbc xpd O9g5cc uUPGi"]');
         if ($googleResultList->count() === 0) {
             throw new InvalidGoogleHtmlException('No parseable element found');
         }
@@ -131,7 +131,7 @@ class Crawler
     private function isImageSuggestion(DomCrawler $resultCrawler)
     {
         $resultCount = $resultCrawler
-            ->filterXpath('//div/a')
+            ->filterXpath('//img')
             ->count();
 
         return $resultCount > 0;
@@ -140,13 +140,13 @@ class Crawler
     private function parseDomElement(DOMElement $result): Result
     {
         $resultCrawler = new DomCrawler($result);
-        $linkElement = $resultCrawler->filterXPath('//h3[@class="r"]/a')->getNode(0);
+        $linkElement = $resultCrawler->filterXPath('//a')->getNode(0);
         if (is_null($linkElement)) {
             throw new InvalidResultException('Link element not found');
         }
 
         $resultLink = new Link($linkElement, 'http://google.com/');
-        $descriptionElement = $resultCrawler->filterXPath('//span[@class="st"]')->getNode(0);
+        $descriptionElement = $resultCrawler->filterXPath('//div[@class="BNeawe s3v9rd AP7Wnd"]//div[@class="BNeawe s3v9rd AP7Wnd"]')->getNode(0);
 
         if (is_null($descriptionElement)) {
             throw new InvalidResultException('Description element not found');
@@ -154,6 +154,10 @@ class Crawler
 
         if ($this->isImageSuggestion($resultCrawler)) {
             throw new InvalidResultException('Result is an image suggestion');
+        }
+
+        if (strpos($resultLink->getUri(), 'http://google.com') === false) {
+            throw new InvalidResultException('Result is a google suggestion');
         }
 
         $googleResult = $this->createResult($resultLink, $descriptionElement);

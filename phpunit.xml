@@ -1,31 +1,25 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/6.0/phpunit.xsd"
-         bootstrap="vendor/autoload.php" colors="true"
-         stopOnFailure="false" stopOnError="false">
-    <testsuites>
-        <testsuite name="all">
-            <directory>tests</directory>
-        </testsuite>
-
-        <testsuite name="unit">
-            <directory>tests/Unit</directory>
-        </testsuite>
-
-        <testsuite name="functional">
-            <directory>tests/Functional</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
-
-    <logging>
-        <log type="coverage-html" target="qa/phpunit/html" />
-        <log type="testdox-text" target="qa/phpunit/testdox.txt" />
-    </logging>
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true" stopOnFailure="false" stopOnError="false">
+  <coverage>
+    <include>
+      <directory>src</directory>
+    </include>
+    <report>
+      <html outputDirectory="qa/phpunit/html"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="all">
+      <directory>tests</directory>
+    </testsuite>
+    <testsuite name="unit">
+      <directory>tests/Unit</directory>
+    </testsuite>
+    <testsuite name="functional">
+      <directory>tests/Functional</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <testdoxText outputFile="qa/phpunit/testdox.txt"/>
+  </logging>
 </phpunit>

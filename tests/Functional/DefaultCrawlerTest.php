@@ -49,6 +49,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
      */
     public function testSearchResultsWithKproxy(int $serverNumber)
     {
+        $this->markTestSkipped('Implementation outdated');
         try {
             $kProxy = new KProxy($serverNumber);
             $searchTerm = new SearchTerm('Test');
