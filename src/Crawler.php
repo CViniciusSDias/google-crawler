@@ -141,7 +141,8 @@ class Crawler
             throw new InvalidResultException('Description element not found');
         }
 
-        if ($resultCrawler->filterXpath('//img')->count() > 0) {
+        $isImageSuggestion = $resultCrawler->filterXpath('//img')->count() > 0;
+        if ($isImageSuggestion) {
             throw new InvalidResultException('Result is an image suggestion');
         }
 
