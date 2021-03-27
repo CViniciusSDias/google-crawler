@@ -28,13 +28,10 @@ class NoProxy implements GoogleProxyInterface
     /** {@inheritdoc} */
     public function parseUrl(string $url): string
     {
-        // Separates the url parts
-        $link = parse_url($url);
-        // Parses the parameters of the url query
-        parse_str($link['query'], $link);
+        $urlParts = parse_url($url);
+        parse_str($urlParts['query'], $queryStringParams);
 
-        $url = filter_var($link['q'], FILTER_VALIDATE_URL);
-        // If this is not a valid URL, so the result is (probably) an image, news or video suggestion
+        $url = filter_var($queryStringParams['q'], FILTER_VALIDATE_URL);
         if (!$url) {
             throw new InvalidResultException();
         }
