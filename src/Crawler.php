@@ -39,7 +39,8 @@ class Crawler
         SearchTermInterface $searchTerm,
         string $googleDomain = 'google.com',
         string $countryCode = ''
-    ): ResultList {
+    ): ResultList
+    {
         if (stripos($googleDomain, 'google.') === false || stripos($googleDomain, 'http') === 0) {
             throw new \InvalidArgumentException('Invalid google domain');
         }
@@ -55,9 +56,10 @@ class Crawler
 
         $resultList = new ResultList($googleResultList->count());
 
+        $domElementParser = new DomElementParser($this->proxy);
         foreach ($googleResultList as $googleResultElement) {
             try {
-                $parsedResult = $this->parseDomElement($googleResultElement);
+                $parsedResult = $domElementParser->parse($googleResultElement);
                 $resultList->addResult($parsedResult);
             } catch (InvalidResultException $exception) {
                 error_log(
@@ -79,66 +81,5 @@ class Crawler
         }
 
         return $googleResultList;
-    }
-
-    /**
-     * If $resultLink is a valid link, this method assembles the Result and adds it to $googleResults
-     *
-     * @param Link $resultLink
-     * @param DOMElement $descriptionElement
-     * @return Result
-     * @throws InvalidResultException
-     */
-    private function createResult(Link $resultLink, DOMElement $descriptionElement): Result
-    {
-        $description = $descriptionElement->nodeValue
-            ?? 'A description for this result isn\'t available due to the robots.txt file.';
-
-        $googleResult = new Result();
-        $googleResult
-            ->setTitle($resultLink->getNode()->nodeValue)
-            ->setUrl($this->parseUrl($resultLink->getUri()))
-            ->setDescription($description);
-
-        return $googleResult;
-    }
-
-    /**
-     * Parses the URL using the parser provided by $proxy
-     *
-     * @param string $url
-     * @return string
-     * @throws InvalidResultException
-     */
-    private function parseUrl(string $url): string
-    {
-        return $this->proxy->parseUrl($url);
-    }
-
-    private function parseDomElement(DOMElement $result): Result
-    {
-        $resultCrawler = new DomCrawler($result);
-        $linkElement = $resultCrawler->filterXPath('//a')->getNode(0);
-        if (is_null($linkElement)) {
-            throw new InvalidResultException('Link element not found');
-        }
-
-        $resultLink = new Link($linkElement, 'http://google.com/');
-        $descriptionElement = $resultCrawler->filterXPath('//div[@class="BNeawe s3v9rd AP7Wnd"]//div[@class="BNeawe s3v9rd AP7Wnd"]')->getNode(0);
-
-        if (is_null($descriptionElement)) {
-            throw new InvalidResultException('Description element not found');
-        }
-
-        $isImageSuggestion = $resultCrawler->filterXpath('//img')->count() > 0;
-        if ($isImageSuggestion) {
-            throw new InvalidResultException('Result is an image suggestion');
-        }
-
-        if (strpos($resultLink->getUri(), 'http://google.com') === false) {
-            throw new InvalidResultException('Result is a google suggestion');
-        }
-
-        return $this->createResult($resultLink, $descriptionElement);
     }
 }
