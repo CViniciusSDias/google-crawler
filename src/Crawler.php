@@ -44,7 +44,10 @@ class Crawler
             throw new \InvalidArgumentException('Invalid google domain');
         }
 
-        $googleUrl = $this->getGoogleUrl($searchTerm, $googleDomain, $countryCode);
+        $googleUrl = "https://$googleDomain/search?q={$searchTerm}&num=100";
+        if (!empty($countryCode)) {
+            $googleUrl .= "&gl={$countryCode}";
+        }
         $response = $this->proxy->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
@@ -110,20 +113,6 @@ class Crawler
     private function parseUrl(string $url): string
     {
         return $this->proxy->parseUrl($url);
-    }
-
-    /**
-     * Assembles the Google URL using the previously informed data
-     */
-    private function getGoogleUrl(SearchTermInterface $searchTerm, string $googleDomain, string $countryCode): string
-    {
-        $domain = $googleDomain;
-        $url = "https://$domain/search?q={$searchTerm}&num=100";
-        if (!empty($countryCode)) {
-            $url .= "&gl={$countryCode}";
-        }
-
-        return $url;
     }
 
     private function parseDomElement(DOMElement $result): Result
