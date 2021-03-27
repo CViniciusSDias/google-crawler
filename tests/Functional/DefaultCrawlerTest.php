@@ -15,9 +15,9 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
     public function testSearchResultsWithoutProxy()
     {
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler($searchTerm);
+        $crawler = new Crawler();
 
-        $results = $crawler->getResults();
+        $results = $crawler->getResults($searchTerm);
         $this->checkResults($results);
     }
 
@@ -29,9 +29,9 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
     {
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler($searchTerm, $commonProxy);
+        $crawler = new Crawler($commonProxy);
         try {
-            $results = $crawler->getResults();
+            $results = $crawler->getResults($searchTerm);
 
             $this->checkResults($results);
         } catch (ConnectException $exception) {

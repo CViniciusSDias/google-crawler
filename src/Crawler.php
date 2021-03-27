@@ -37,8 +37,8 @@ class Crawler
      */
     public function getResults(
         SearchTermInterface $searchTerm,
-        string $googleDomain,
-        string $countryCode
+        string $googleDomain = 'google.com',
+        string $countryCode = ''
     ): ResultList {
         if (stripos($googleDomain, 'google.') === false || stripos($googleDomain, 'http') === 0) {
             throw new \InvalidArgumentException('Invalid google domain');
